@@ -1,73 +1,35 @@
 # credit-risk-classification
 
-Credit Risk Classification
-Credit risk poses a classification problem that’s inherently imbalanced. This is because healthy loans easily outnumber risky loans. In this Challenge, you’ll use various techniques to train and evaluate models with imbalanced classes. You’ll use a dataset of historical lending activity from a peer-to-peer lending services company to build a model that can identify the creditworthiness of borrowers.
+## Overview of the Analysis
 
-Instructions:
-This challenge consists of the following subsections:
+The purpose of this analysis was to develop machine learning models capable of predicting credit risk for a lending company. The objective was to identify which borrowers are likely to be high-risk (default on their loan) versus those who are low-risk (will repay their loan). This differentiation is critical for the company to manage its financial risk effectively.
 
-Split the Data into Training and Testing Sets
+The dataset comprised historical financial information from a peer-to-peer lending services company. The key variable to predict was the loan status, categorized into '0' for healthy loans and '1' for high-risk loans. The `value_counts` of the original dataset revealed a significant imbalance between the two categories, which was crucial since it could skew the predictive performance of our models.
 
-Create a Logistic Regression Model with the Original Data
+During the machine learning process, the following stages were undertaken:
+1. Data Preprocessing: Handling missing values, encoding categorical variables, and splitting the data into training and testing sets.
+2. Model Selection: Choosing Logistic Regression for its efficacy in binary classification problems.
+3. Resampling: Applying the `RandomOverSampler` method to address the imbalance in the dataset and create an even distribution of the two classes.
+4. Model Training: Fitting the Logistic Regression model to both the original imbalanced dataset and the oversampled dataset.
+5. Model Evaluation: Assessing model performance through metrics such as balanced accuracy, precision, and recall.
 
-Predict a Logistic Regression Model with Resampled Training Data
+## Results
 
-Split the Data into Training and Testing Sets
-Open the starter code notebook and then use it to complete the following steps.
+* Machine Learning Model 1:
+  * The first model, trained on the original imbalanced dataset, had a certain level of accuracy but showed limitations in recall for the minority class (high-risk loans).
 
-Read the lending_data.csv data from the Resources folder into a Pandas DataFrame.
+* Machine Learning Model 2:
+  * Description of Model 2 Accuracy, Precision, and Recall scores:
+      * Balanced Accuracy Score: 0.99
+      * Precision for Healthy Loans (0): 1.00
+      * Recall for Healthy Loans (0): 0.99
+      * Precision for High-Risk Loans (1): 0.84
+      * Recall for High-Risk Loans (1): 0.99
 
-Create the labels set (y) from the “loan_status” column, and then create the features (X) DataFrame from the remaining columns.
+## Summary
 
-Note A value of 0 in the “loan_status” column means that the loan is healthy. A value of 1 means that the loan has a high risk of defaulting.
+Upon reviewing the results, it appears that Machine Learning Model 2, which was trained on the oversampled dataset, outperforms Model 1 in terms of balanced accuracy and recall for both classes. This model demonstrates a particularly strong ability to correctly identify the high-risk loans, which is crucial for a lending company to minimize financial loss.
 
-Check the balance of the labels variable (y) by using the value_counts function.
+Considering the company's needs, the performance of a model in this context might depend on the specific financial implications of false negatives (failing to identify a high-risk loan) versus false positives (mistakenly identifying a healthy loan as high-risk). Generally, the high recall of high-risk loans in Model 2 suggests it would be the preferred model, as it minimizes the risk of lending to borrowers who are likely to default.
 
-Split the data into training and testing datasets by using train_test_split.
-
-Create a Logistic Regression Model with the Original Data
-Employ your knowledge of logistic regression to complete the following steps:
-
-Fit a logistic regression model by using the training data (X_train and y_train).
-
-Save the predictions on the testing data labels by using the testing feature data (X_test) and the fitted model.
-
-Evaluate the model’s performance by doing the following:
-
-Calculate the accuracy score of the model.
-
-Generate a confusion matrix.
-
-Print the classification report.
-
-Answer the following question: How well does the logistic regression model predict both the 0 (healthy loan) and 1 (high-risk loan) labels?
-
-Predict a Logistic Regression Model with Resampled Training Data
-Did you notice the small number of high-risk loan labels? Perhaps, a model that uses resampled data will perform better. You’ll thus resample the training data and then reevaluate the model. Specifically, you’ll use RandomOverSampler.
-
-To do so, complete the following steps:
-
-Use the RandomOverSampler module from the imbalanced-learn library to resample the data. Be sure to confirm that the labels have an equal number of data points.
-
-Use the LogisticRegression classifier and the resampled data to fit the model and make predictions.
-
-Evaluate the model’s performance by doing the following:
-
-Calculate the accuracy score of the model.
-
-Generate a confusion matrix.
-
-Print the classification report.
-
-Answer the following question: How well does the logistic regression model, fit with oversampled data, predict both the 0 (healthy loan) and 1 (high-risk loan) labels?
-
-Write a Credit Risk Analysis Report
-For this section, you’ll write a brief report that includes a summary and an analysis of the performance of both machine learning models that you used in this challenge. You should write this report as the README.md file included in your GitHub repository.
-
-Structure your report by using the report template that Starter_Code.zip includes, and make sure that it contains the following:
-
-An overview of the analysis: Explain the purpose of this analysis.
-
-The results: Using bulleted lists, describe the balanced accuracy scores and the precision and recall scores of both machine learning models.
-
-A summary: Summarize the results from the machine learning models. Compare the two versions of the dataset predictions. Include your recommendation for the model to use, if any, on the original vs. the resampled data. If you don’t recommend either model, justify your reasoning.
+Therefore, Model 2 (the Logistic Regression model trained on oversampled data) is recommended for use. It exhibits a higher accuracy and recall score, suggesting that it is more reliable for classifying both healthy and high-risk loans correctly. This model is less likely to cause financial loss due to defaulted loans and will enable the lending company to make more informed and safer lending decisions.
